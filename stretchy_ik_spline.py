@@ -1,13 +1,16 @@
 import maya.cmds as mc
 
-def createStretchyIkSpine(s_curve, jnt_num):
+def createStretchyIkSpine(s_curve=mc.ls(sl=True), jnt_num=3):
     """
     Creates a stretchy Ik Spine from a selected or specified curve.
     """    
+    if not s_curve:
+        mc.error('No curve specified or selected')
+    else:
+        s_curve = s_curve[0]
+    if jnt_num < 2:
+        mc.error('Must have at least two joints')
     
-    if s_curve =='':
-        s_curve = mc.ls(sl=True)[0]
-        
     jnt_list = []
     
     mc.select(cl=True)
